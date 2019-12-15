@@ -21,7 +21,14 @@ Token Lexer::next() {
         return delimiter();
     }
 
-    return Token(Token::Type::End, m_begin, 1);
+    if(Token::is_eof(current_char())) {
+        return eof();
+    }
+
+    const char* begin = m_begin;
+    get_next();
+    return Token(Token::Type::Unknown, begin, 1);
+
 }
 
 Token Lexer::keyword() {
@@ -61,5 +68,9 @@ Token Lexer::delimiter() {
         get_next();
     }
 
-    return Token(Token::Type::Delimiter, begin, m_begin);
+    return Token(Token::Type::Delimiter, begin, 1);
+}
+
+Token Lexer::eof() {
+    return Token(Token::Type::Eof, m_begin, 1);
 }

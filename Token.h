@@ -11,7 +11,8 @@ public:
         Operator,
         Number,
         Delimiter,
-        End,
+        Unknown,
+        Eof,
     };
 
     Token(Type type, const char* begin, const char* end) : m_type{type}, m_lex(begin, std::distance(begin, end)) {}
@@ -36,7 +37,7 @@ public:
     static bool is_operator(char c);
     static bool is_number(char c);
     static bool is_delimiter(char c);
-
+    static bool is_eof(char c);
 };
 
 

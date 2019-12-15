@@ -27,6 +27,10 @@ bool Token::is_delimiter(char c) {
     return c == ';';
 }
 
+bool Token::is_eof(char c) {
+    return c == '\0';
+}
+
 bool Token::is(Token::Type type) const {
     return m_type == type;
 }

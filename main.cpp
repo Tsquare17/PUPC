@@ -24,7 +24,7 @@ int main(int argc, char **argv)
     char const* const mmap = static_cast<char*>(region.get_address());
 
     Lexer lex(mmap);
-    for(auto token = lex.next(); !token.is(Token::Type::End); token = lex.next()) {
+    for(auto token = lex.next(); !token.is(Token::Type::Eof); token = lex.next()) {
         if(token.type() == Token::Type::Identifier) {
             std::cout << "Identifier: ";
         }
@@ -36,6 +36,9 @@ int main(int argc, char **argv)
         }
         if(token.type() == Token::Type::Delimiter) {
             std::cout << "Delimiter: ";
+        }
+        if(token.type() == Token::Type::Unknown) {
+            std::cout << "Unknown : ";
         }
 
         std::cout << token.lex() << "\n";
