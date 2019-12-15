@@ -20,7 +20,7 @@ public:
         return *m_begin++;
     }
 
-    Token keyword();
+    Token identifier();
     Token operator_type();
     Token number();
     Token delimiter();

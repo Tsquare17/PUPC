@@ -6,7 +6,7 @@ Token Lexer::next() {
     }
 
     if(Token::is_char(current_char())) {
-        return keyword();
+        return identifier();
     }
 
     if(Token::is_operator(current_char())) {
@@ -31,7 +31,7 @@ Token Lexer::next() {
 
 }
 
-Token Lexer::keyword() {
+Token Lexer::identifier() {
     const char* begin = m_begin;
     get_next();
     while(Token::is_char(current_char())) {
