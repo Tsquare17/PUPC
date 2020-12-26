@@ -3,4 +3,25 @@ project(PUPC)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(pupc src/main.cpp src/lexer/Token.cpp src/lexer/Token.h src/lexer/Lexer.cpp src/lexer/Lexer.h src/ast/Ast.cpp src/ast/Ast.h src/ast/ops/Bop.cpp src/ast/ops/Bop.h src/parser/Parser.cpp src/parser/Parser.h src/ast/ops/Uop.cpp src/ast/ops/Uop.h)
+set(PUPC_HEADERS
+        src/lexer/Token.h
+        src/lexer/Lexer.h
+        src/parser/Parser.h
+        src/ast/ExpressionNode.h
+        src/ast/vals/IntNode.h
+        src/ast/AstNode.h
+        src/ast/ops/BopNode.h
+        src/ast/vals/CharNode.h)
+
+set(PUPC_SOURCE
+        src/main.cpp
+        src/lexer/Token.cpp
+        src/lexer/Lexer.cpp
+        src/parser/Parser.cpp
+        src/ast/ExpressionNode.cpp
+        src/ast/vals/IntNode.cpp
+        src/ast/AstNode.cpp
+        src/ast/ops/BopNode.cpp
+        src/ast/vals/CharNode.cpp)
+
+add_executable(pupc ${PUPC_SOURCE} ${PUPC_HEADERS})

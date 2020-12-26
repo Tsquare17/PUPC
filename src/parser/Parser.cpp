@@ -1,21 +1,27 @@
-#include <vector>
 #include <iostream>
+#include <vector>
 #include "Parser.h"
+#include "../ast/ExpressionNode.h"
 
 void Parser::parse(Lexer lex) {
-    std::vector< std::vector< Token > > statements = {};
-    std::vector <Token> current_statement = {};
+    std::vector<std::string_view> statements;
+    std::string statement;
     for(auto token = lex.next(); !token.is(Token::Type::Eof); token = lex.next()) {
 
-        if(token.type() != Token::Type::Delimiter) {
-            // collect token
-            current_statement.push_back(token);
+        if(token.type() == Token::Type::Number) {
+            while(token.type() != Token::Type::Delimiter && token.type() != Token::Type::Eof) {
+                statements.push_back(token.lex());
+                std::string current = token.lex().data();
+                statement += " " + current;
+                token = lex.next();
+            }
+        }
+
+        if(token.type() == Token::Type::Comment) {
+            std::cout << "Comment: ";
         }
 
         if(token.type() == Token::Type::Delimiter) {
-            // end the statement, and start another.
-            statements.push_back(current_statement);
-            current_statement = {};
             std::cout << "Delimiter: ";
         }
 
@@ -35,7 +41,16 @@ void Parser::parse(Lexer lex) {
             std::cout << "Unknown : ";
         }
 
-        std::cout << token.lex() << "\n";
+        if(token.type() != Token::Type::Eol) {
+            std::cout << token.lex() << "\n";
+        }
     }
 
+    /**
+     * Test assembling AST.
+     */
+    ExpressionNode node = ExpressionNode('+', 1, 1);
+    ExpressionNode node1 = ExpressionNode('-', 2, node);
 }
+
+

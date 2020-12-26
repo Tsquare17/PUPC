@@ -24,6 +24,7 @@ public:
     Token operator_type();
     Token number();
     Token delimiter();
+    Token eol();
     Token eof();
 };
 

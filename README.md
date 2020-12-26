@@ -1,3 +1,3 @@
-# PUPC - The Pupper Compiler
+# PupC - The Pupper Compiler
 
-A toy compiler in progress.
+A compiler in the making for the soon-to-be Pupper programming language.

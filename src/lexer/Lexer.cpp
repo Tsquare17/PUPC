@@ -1,7 +1,7 @@
 #include "Lexer.h"
 
 Token Lexer::next() {
-    while(Token::is_nothing(current_char())) {
+    while(Token::is_space(current_char())) {
         get_next();
     }
 
@@ -21,6 +21,10 @@ Token Lexer::next() {
         return delimiter();
     }
 
+    if(Token::is_eol(current_char())) {
+        return eol();
+    }
+
     if(Token::is_eof(current_char())) {
         return eof();
     }
@@ -34,6 +38,14 @@ Token Lexer::next() {
 Token Lexer::identifier() {
     const char* begin = m_begin;
     get_next();
+
+    if(Token::is_slash(current_char())) {
+        while(!Token::is_eol(current_char())) {
+            get_next();
+        }
+        return Token(Token::Type::Comment, begin, m_begin);
+    }
+
     while(Token::is_char(current_char())) {
         get_next();
     }
@@ -69,6 +81,12 @@ Token Lexer::delimiter() {
     }
 
     return Token(Token::Type::Delimiter, begin, 1);
+}
+
+Token Lexer::eol() {
+    const char* begin = m_begin;
+    get_next();
+    return Token(Token::Type::Eol, begin, 1);
 }
 
 Token Lexer::eof() {

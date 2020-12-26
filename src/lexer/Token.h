@@ -11,7 +11,9 @@ public:
         Operator,
         Number,
         Delimiter,
+        Comment,
         Unknown,
+        Eol,
         Eof,
     };
 
@@ -32,11 +34,13 @@ public:
 
     [[nodiscard]] bool is(Type type) const;
 
-    static bool is_nothing(char c);
+    static bool is_space(char c);
     static bool is_char(char c);
     static bool is_operator(char c);
     static bool is_number(char c);
+    static bool is_slash(char c);
     static bool is_delimiter(char c);
+    static bool is_eol(char c);
     static bool is_eof(char c);
 };
 
